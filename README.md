@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🎨 Color Palette Generator API
+A free and simple API for generating color palettes based on a base color.
 
-## Getting Started
+Base URL
+arduino
+Copy
+Edit
+https://yourwebsite.com/api/generate-palette
+Authentication
+No authentication required.
+You can start using the API right away.
 
-First, run the development server:
+Endpoints
+GET /api/generate-palette
+Description
+Generates a color palette.
+Optionally, pass a base color to customize the palette.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Query Parameters
+Name	Type	Required	Description
+color	string	No	Base color in hex format. Must be URL-encoded if including #. Defaults to #3b82f6 (Tailwind blue).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Example Request
+bash
+Copy
+Edit
+# Default palette
+curl "https://yourwebsite.com/api/generate-palette"
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# With a base color
+curl "https://yourwebsite.com/api/generate-palette?color=%23ff5733"
+Example Response
+json
+Copy
+Edit
+{
+  "palette": [
+    "#ff5733",
+    "#33ff57",
+    "#ffd700",
+    "#6a0dad",
+    "#a1b2c3"
+  ]
+}
+Response Format
+Field	Type	Description
+palette	string[]	Array of generated hex colors
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Error Handling
+If you pass an invalid color code:
 
-## Learn More
+json
+Copy
+Edit
+{
+  "error": "Invalid color format. Please use hex format like #RRGGBB."
+}
+Status code: 400 Bad Request
 
-To learn more about Next.js, take a look at the following resources:
+Usage Example (JavaScript)
+js
+Copy
+Edit
+async function getPalette(baseColor = "#ff5733") {
+  const url = `https://yourwebsite.com/api/generate-palette?color=${encodeURIComponent(baseColor)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(data.palette);
+}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+getPalette();
+Rate Limits
+No hard rate limit for now (but please be respectful).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+License
+This API is free to use under the MIT License. Attribution is appreciated but not required.
