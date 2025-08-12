@@ -2,7 +2,15 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Palette, Sparkles, Zap, Download, Copy, Heart } from "lucide-react";
+import {
+  Palette,
+  Sparkles,
+  Zap,
+  Download,
+  Copy,
+  Heart,
+  Code,
+} from "lucide-react";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -39,55 +47,51 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 pt-16 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-teal-300/20 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Animated background elements */}
-          <div className="absolute top-20 left-10 w-72 h-72 bg-teal-300/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-
-          <div className="relative z-10">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl shadow-lg">
-                <Palette className="w-12 h-12 text-white" />
-              </div>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl shadow-lg">
+              <Palette className="w-12 h-12 text-white" />
             </div>
+          </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Color Palette
-              </span>
-              <br />
-              <span className="text-slate-800 dark:text-slate-200">
-                Generator
-              </span>
-            </h1>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Color Palette
+            </span>
+            <br />
+            <span className="text-slate-800 dark:text-slate-200">
+              Generator
+            </span>
+          </h1>
 
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Create stunning, harmonious color palettes for your design
-              projects. Pick a base color and let our algorithm generate the
-              perfect complementary colors.
-            </p>
+          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Create stunning, harmonious color palettes for your design projects.
+            Pick a base color and let our algorithm generate the perfect
+            complementary colors.
+          </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <button
-                onClick={handleGetStarted}
-                className="group px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
-                <Zap className="w-5 h-5 group-hover:animate-pulse" />
-                Get Started Free
-              </button>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <button
+              onClick={handleGetStarted}
+              className="group px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+              <Zap className="w-5 h-5 group-hover:animate-pulse" />
+              Get Started Free
+            </button>
 
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("features")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="px-8 py-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600">
-                Learn More
-              </button>
-            </div>
+            <button
+              onClick={() => router.push("/api-access")}
+              className="flex items-center gap-2 px-8 py-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-700 dark:text-slate-300 font-semibold rounded-full shadow-lg hover:shadow-indigo-200 hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600">
+              <Code className="w-5 h-5 text-indigo-500 dark:text-indigo-300" />
+              API Playground
+            </button>
           </div>
         </div>
       </div>
@@ -95,7 +99,7 @@ export default function LandingPage() {
       {/* Features Section */}
       <div
         id="features"
-        className="container mx-auto px-4 py-20">
+        className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-slate-200 mb-4">
             Powerful Features
@@ -129,7 +133,7 @@ export default function LandingPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl p-12 shadow-2xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Create Amazing Palettes?
@@ -148,7 +152,7 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200/20 dark:border-slate-700/20 py-8">
+      <footer className="border-t border-slate-200/20 dark:border-slate-700/20 py-8 relative z-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-slate-600 dark:text-slate-300 flex items-center justify-center gap-2">
             Made with <Heart className="w-4 h-4 text-red-500" /> for designers
