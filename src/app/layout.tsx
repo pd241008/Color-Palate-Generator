@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased my-8`}>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         {/* ✅ Navbar will now appear on every page */}
         <Navbar />
 
