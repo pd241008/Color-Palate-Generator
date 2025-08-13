@@ -28,39 +28,41 @@ Users can select a base color and receive a curated palette, with the option to 
 
 ## 📦 Installation & Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/color-palette-generator.git
-   cd color-palette-generator
-   ```
-2. **Install dependencies**
+-1. **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/color-palette-generator.git
+cd color-palette-generator
+```
+
+-2. **Install dependencies**
 
 ```bash
 npm install
 ```
 
-3. **Run the development server**
+-3. **Run the development server**
 
 ```bash
  npm run dev
 ```
 
-4. **Open in browser**
+-4. **Open in browser**
 
 ```bash
  http://localhost:3000
 ```
 
-🌐 API Usage
+-🌐 API Usage
 The application exposes a simple public API to generate a color palette.
 
-Endpoint:
+-Endpoint:
 
 ```bash
  GET /api/colors?base=#HEXCODE
 ```
 
-Example:
+-Example:
 
 ```GET https://your-deployment-url.vercel.app/api/colors?base=#ff5733
 
@@ -76,7 +78,7 @@ Example:
 ]
 ```
 
-📜 License
+-📜 License
 This project is licensed under the MIT License.
 
 ```
