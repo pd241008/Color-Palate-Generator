@@ -35,44 +35,52 @@ Users can select a base color and receive a curated palette, with the option to 
    ```
 2. **Install dependencies**
 
-## npm install
+```bash
+npm install
+```
 
 3. **Run the development server**
 
-## npm run dev
+```bash
+ npm run dev
+```
 
 4. **Open in browser**
 
-## http://localhost:3000
+```bash
+ http://localhost:3000
+```
 
 🌐 API Usage
 The application exposes a simple public API to generate a color palette.
 
 Endpoint:
 
-## GET /api/colors?base=#HEXCODE
+```bash
+ GET /api/colors?base=#HEXCODE
+```
 
 Example:
 
-## GET https://your-deployment-url.vercel.app/api/colors?base=#ff5733
+```GET https://your-deployment-url.vercel.app/api/colors?base=#ff5733
 
-## [
+```
 
-## "#FF5733",
-
-## "#FFD700",
-
-## "#33FF57",
-
-## "#6A0DAD",
-
-## "#1E90FF"
-
-## ]
+```
+[
+"#FF5733",
+"#FFD700",
+"#33FF57",
+"#6A0DAD",
+"#1E90FF"
+]
+```
 
 📜 License
 This project is licensed under the MIT License.
 
+```
 **I can also add a **"Run API on Same Website"** section in the README so your users know they can test the API right from the site without leaving it. **
 
 **Do you want me to add that?**
+```
