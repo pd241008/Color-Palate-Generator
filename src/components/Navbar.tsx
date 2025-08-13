@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Palette, Code2, Home, Sun, Moon, BookOpen } from "lucide-react";
+import { Palette, Code2, Home, Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -32,13 +32,12 @@ export default function Navbar() {
     { name: "Home", href: "/", icon: Home },
     { name: "Palette Generator", href: "/palette", icon: Palette },
     { name: "API Playground", href: "/api-access", icon: Code2 },
-    { name: "Docs", href: "/docs", icon: BookOpen }, // ✅ Added Docs link
   ];
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-white/20 dark:border-slate-700/20 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo Section */}
         <Link
           href="/"
           className="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
@@ -46,7 +45,7 @@ export default function Navbar() {
           ColorGen
         </Link>
 
-        {/* Desktop Links */}
+        {/* Links */}
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map(({ name, href, icon: Icon }) => (
             <Link
