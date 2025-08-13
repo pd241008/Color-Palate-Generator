@@ -1,132 +1,97 @@
 "use client";
 
-import { Code2, Server, Terminal } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Palette, Code2, Home, Sun, Moon, BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default function DocsPage() {
+export default function Navbar() {
+  const pathname = usePathname();
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  // On mount, check current theme
+  useEffect(() => {
+    if (document.documentElement.classList.contains("dark")) {
+      setTheme("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === "light") {
+      document.documentElement.classList.add("dark");
+      setTheme("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
+  const navLinks = [
+    { name: "Home", href: "/", icon: Home },
+    { name: "Palette Generator", href: "/palette", icon: Palette },
+    { name: "API Playground", href: "/api-access", icon: Code2 },
+    { name: "Docs", href: "/docs", icon: BookOpen }, // ✅ Added Docs link
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 pt-20 px-4">
-      <div className="max-w-5xl mx-auto space-y-12">
-        {/* Header */}
-        <header className="text-center space-y-4">
-          <div className="inline-flex items-center justify-center p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl shadow-lg">
-            <Code2 className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-5xl font-extrabold text-slate-800 dark:text-slate-100">
-            ColorGen API Documentation
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-            Learn how to integrate the ColorGen API into your projects and
-            generate beautiful palettes in seconds.
-          </p>
-        </header>
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-white/20 dark:border-slate-700/20 shadow-sm">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-lg font-bold text-slate-800 dark:text-slate-100">
+          <Palette className="w-6 h-6 text-indigo-500" />
+          ColorGen
+        </Link>
 
-        {/* Base URL */}
-        <section className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-slate-700/20 p-6">
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-2">
-            <Server className="w-6 h-6 text-indigo-500" /> Base URL
-          </h2>
-          <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto">
-            https://yourdomain.com/api/colors
-          </pre>
-        </section>
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map(({ name, href, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-1 px-3 py-2 rounded-full transition-colors ${
+                pathname === href
+                  ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md"
+                  : "text-slate-700 dark:text-slate-300 hover:text-indigo-500 dark:hover:text-indigo-400"
+              }`}>
+              <Icon className="w-4 h-4" />
+              {name}
+            </Link>
+          ))}
+        </div>
 
-        {/* Endpoints */}
-        <section className="space-y-8">
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
-            Endpoints
-          </h2>
-
-          {/* Random Palette */}
-          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-slate-700/20 p-6">
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">
-              1. Get Random Palette
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-3">
-              Generates a set of random colors.
-            </p>
-            <pre className="bg-slate-900 text-blue-400 p-4 rounded-lg overflow-x-auto">
-              GET /api/colors
-            </pre>
-            <h4 className="mt-4 font-semibold text-slate-700 dark:text-slate-300">
-              Example Response:
-            </h4>
-            <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto">
-              {`[
-  "#A1B2C3",
-  "#FFD700",
-  "#33FF57",
-  "#FF5733",
-  "#6A0DAD"
-]`}
-            </pre>
-          </div>
-
-          {/* Palette by Base */}
-          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-slate-700/20 p-6">
-            <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-2">
-              2. Get Palette by Base Color
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-3">
-              Generates a palette based on a specific base color.
-            </p>
-            <pre className="bg-slate-900 text-blue-400 p-4 rounded-lg overflow-x-auto">
-              GET /api/colors?base=ff5733
-            </pre>
-            <h4 className="mt-4 font-semibold text-slate-700 dark:text-slate-300">
-              Example Response:
-            </h4>
-            <pre className="bg-slate-900 text-green-400 p-4 rounded-lg overflow-x-auto">
-              {`[
-  "#FF5733",
-  "#FF8A65",
-  "#FFD54F",
-  "#4DB6AC",
-  "#9575CD"
-]`}
-            </pre>
-          </div>
-        </section>
-
-        {/* Parameters */}
-        <section className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-slate-700/20 p-6">
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-4">
-            Query Parameters
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border border-slate-300 dark:border-slate-700 rounded-lg">
-              <thead>
-                <tr className="bg-slate-200 dark:bg-slate-700">
-                  <th className="p-2 text-left">Parameter</th>
-                  <th className="p-2 text-left">Type</th>
-                  <th className="p-2 text-left">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-t border-slate-300 dark:border-slate-700">
-                  <td className="p-2">base</td>
-                  <td className="p-2">string (hex)</td>
-                  <td className="p-2">
-                    Base color to generate related palette from.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Example Usage */}
-        <section className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 dark:border-slate-700/20 p-6">
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-2">
-            <Terminal className="w-6 h-6 text-indigo-500" /> Example Usage
-            (JavaScript)
-          </h2>
-          <pre className="bg-slate-900 text-yellow-300 p-4 rounded-lg overflow-x-auto">
-            {`fetch("https://yourdomain.com/api/colors?base=ff5733")
-  .then(res => res.json())
-  .then(data => console.log(data));`}
-          </pre>
-        </section>
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          aria-label="Toggle Dark Mode"
+          className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          {theme === "light" ? (
+            <Moon className="w-5 h-5 text-slate-700" />
+          ) : (
+            <Sun className="w-5 h-5 text-yellow-400" />
+          )}
+        </button>
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg px-4 py-2 flex justify-around">
+        {navLinks.map(({ name, href, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`flex flex-col items-center gap-1 text-xs ${
+              pathname === href
+                ? "text-indigo-500 font-semibold"
+                : "text-slate-600 dark:text-slate-300"
+            }`}>
+            <Icon className="w-5 h-5" />
+            {name}
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }
