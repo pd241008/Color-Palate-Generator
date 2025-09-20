@@ -81,8 +81,4 @@ The application exposes a simple public API to generate a color palette.
 -📜 License
 This project is licensed under the MIT License.
 
-```
-**I can also add a **"Run API on Same Website"** section in the README so your users know they can test the API right from the site without leaving it. **
 
-**Do you want me to add that?**
-```
